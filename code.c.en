@@ -1,0 +1,79 @@
+class Solution {
+public:
+	int numMagicSquaresInside(vector<vector<int>>& grid) {
+		int count = 0;
+		int m = grid.size();
+		int n = grid[0].size();
+		
+		for (int i = 0; i < m - 2; i++) {
+			for (int j = 0; j < n - 2; j++) {
+				if (isMagicSquare(grid, i, j)) {
+					count++;
+				}
+			}
+		}
+		
+		return count;
+	}
+    
+private:
+	bool isMagicSquare(vector<vector<int>>& grid, int i, int j) {
+		// Initialize a vector 'nums' of size 15, all elements set to 0
+		vector<int> nums(9, 0);
+
+		// Iterate through the 3x3 subgrid
+		for (int x = i; x < i + 3; x++) {
+			for (int y = j; y < j + 3; y++) {
+			// Check if the current element is valid (between 1 and 15)
+			// and if it has not been seen before
+				if (grid[x][y] < 1 || grid[x][y] > 9 || nums[grid[x][y] - 1] == 1) {
+					// If the element is invalid or has been seen before, return false
+					return false;
+				}
+		
+				// Mark the current element as seen by setting the corresponding
+				// element in the 'nums' vector to 1
+				nums[grid[i][j] - 1] = 1;
+			}
+		}
+
+		// Calculate the target sum for the rows, columns, and diagonals
+		// by summing the first three elements in the first row
+		int target = grid[i][j] + grid[i][j + 1] + grid[i][j + 2];
+		
+		
+		// Check rows
+		for (int x = i; x < i + 3; x++) {
+			int sum = 0;
+			for (int y = j; y < j + 3; y++) {
+				sum += grid[x][y];
+			}
+			if (sum != target) {
+				return false;
+			}
+		}
+		
+		// Check columns
+		for (int y = j; y < j + 3; y++) {
+			int sum = 0;
+			for (int x = i; x < i + 3; x++) {
+				sum += grid[x][y];
+			}
+			if (sum != target) {
+				return false;
+			}
+		}
+		
+		// Check diagonals
+		int sum1 = 0, sum2 = 0;
+		for (int k = 0; k < 3; k++) {
+			sum1 += grid[i + k][j + k];
+			sum2 += grid[i + k][j + 2 - k];
+		}
+		if (sum1 != target || sum2 != target) {
+			return false;
+		}
+		
+		return true;
+	}
+};
