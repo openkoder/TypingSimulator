@@ -39,7 +39,7 @@ Das Programm simuliert dann den Tippvorgang eines Textes aus der Datei "code.c",
 ### Beispielverwendung:
 
 ```bash
-./typing_simulator example.c
+./typing_simulator
 ```
 
 ## Einstellungen
