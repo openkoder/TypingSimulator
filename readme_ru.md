@@ -39,7 +39,7 @@ gcc typing_simulator.c -o typing_simulator -lncurses
 ### Пример использования:
 
 ```bash
-./typing_simulator example.c
+./typing_simulator
 ```
 
 ## Настройки
